@@ -1,0 +1,11 @@
+{
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "sponsorkit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "sponsorkit": "17.1.1"
+  }
+}
