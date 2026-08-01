@@ -3,13 +3,13 @@ import { defineConfig, tierPresets } from 'sponsorkit'
 export default defineConfig({
   mode: "sponsors",
   renderer: "tiers",
+  outputDir: '.',
   github: {
     login: 'KristanLaimon',
     type: 'user',
   },
   width: 800,
   formats: ['svg', 'png'],
-  outputDir: ".",
   tiers: [
     {
       title: 'Past Sponsors',
@@ -18,7 +18,6 @@ export default defineConfig({
     },
     {
       title: 'Backers 🦊',
-      // monthlyDollars: 1, # This is 1 dollar. But, currently I do not support one-time
       // sponsors, so this is $1 always, otherwise, here would go $1 and one-time sponsors.
       preset: tierPresets.medium,
     },
@@ -28,4 +27,21 @@ export default defineConfig({
       preset: tierPresets.large,
     },
   ],
+  renders: [
+    {
+      name: 'sponsors.part1', 
+      width: 800,
+      filter: (sponsor) => sponsor.monthlyDollars >= 3
+    },
+    {
+      name: 'sponsors.part2', 
+      width: 800,
+      filter: (sponsor) => sponsor.monthlyDollars < 3 && sponsor.monthlyDollars >= 0
+    },
+    {
+      name: 'sponsors.past', 
+      width: 800,
+      filter: (sponsor) => sponsor.monthlyDollars < 0
+    }
+  ]
 })
