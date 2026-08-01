@@ -9,6 +9,7 @@ export default defineConfig({
   },
   width: 800,
   formats: ['svg', 'png'],
+  outputDir: ".",
   tiers: [
     {
       title: 'Past Sponsors',
