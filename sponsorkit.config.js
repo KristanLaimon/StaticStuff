@@ -17,7 +17,8 @@ export default defineConfig({
     },
     {
       title: 'Backers 🦊',
-      monthlyDollars: 1,
+      // monthlyDollars: 1, # This is 1 dollar. But, currently I do not support one-time
+      // sponsors, so this is $1 always, otherwise, here would go $1 and one-time sponsors.
       preset: tierPresets.medium,
     },
     {
