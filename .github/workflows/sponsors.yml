@@ -1,0 +1,45 @@
+name: Generate sponsors svg
+
+on:
+  workflow_dispatch: # Can be executed manually
+  schedule:
+    - cron: "0 0 * * *" # Everyday at midnight
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: write
+
+jobs:
+  update-sponsors:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the repo
+        uses: actions/checkout@v7
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Installing deps
+        run: bun install
+
+      - name: Running sponsors svg
+        run: bun run build
+        env:
+          SPONSORKIT_GITHUB_TOKEN: ${{ secrets.SPONSORKIT_GITHUB_TOKEN }}
+          SPONSORKIT_GITHUB_LOGIN: KristanLaimon
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Github Actions
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          message: "chore: update sponsors.svg [ci skip]"
+          add: "sponsors.*" # sponsorkit expected behavior, it exports many sponsors.* images
+        env:
+          GITHUB_TOKEN: $${{secrets.GITHUB_TOKEN}}
+      # - name: Generate sponsors
+
+      # uses: antfu/sponsors-action@v3
